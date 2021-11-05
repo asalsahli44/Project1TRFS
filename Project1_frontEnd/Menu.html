@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+
+    <title>Menu</title>
+        <h1>Menu Page</h1>
+</head>
+
+<style>
+    h1{
+        text-align: center;
+    }
+    #formlink{
+        text-align: center;
+       margin: auto;
+       width: 60%;
+    border: 5px solid white;
+    padding: 10px;
+   
+     
+    }
+    #gf{
+        margin-top: 10px;
+        text-align: center;
+       margin: auto;
+       width: 60%;
+    border: 5px solid white;
+    padding: 10px;
+   
+    }
+    #approvePage{
+        margin-top: 10px;
+        text-align: center;
+       margin: auto;
+       width: 60%;
+    border: 5px solid white;
+    padding: 10px;
+   
+    }
+    
+
+
+    #f{
+        color: black;
+        text-size-adjust: auto;
+
+    }
+
+
+    #pop{
+        color: black;
+        text-size-adjust: auto;
+
+    }
+    body {
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+</style>
+
+<body>
+    <div id = "formlink" >
+       
+        <h1>
+        <a id = f href="Form1.html">Submit new Form</a>
+        </h1>
+    </div>
+
+    <div id = "gf">
+        <h1>
+    <a id = "getForms" href = "C:\Users\ahmed\OneDrive\Desktop\p\Project1\formPrint.html" >Look at Forms<a>
+    </h1>
+    <div>
+
+
+     <div id = "approvePage">
+            <h1>
+            <a id = f href = "approval.html">Approval Page</a>
+            <h1>
+     </div>
+     
+
+     
+     <div id = "pop">
+        <h1>
+        <a id = f href = "populateApprovals.html">All Approvals</a>
+        <h1>
+ </div>
+ 
+
+
+
+     
+     <h3 id = "k"></h3>
+
+
+
+
+
+
+     <button id = "n" onclick = "getForms()">Show Employee</button>
+    
+
+
+
+
+</body>
+
+<script>
+let id = sessionStorage.getItem("id");
+console.log(id)
+id = document.getElementById(id);
+
+//sessionStorage.setItem("id",id);
+
+
+// for(i in id)
+// {
+//     console.log(i);
+// }
+
+
+async function getForms(){
+    //document.getElementById("result").innerHTML = sessionStorage.getItem("id");
+   
+    const url = 'http://localhost:7000/reinForm';
+    const httpResponse = await fetch(url);
+    const body = await httpResponse.json();
+    console.log(body);
+
+    let id = sessionStorage.getItem("id");
+    console.log(id)
+    const url2 = `http://localhost:7000/employee/${id}`;
+    const httpResponse2 = await fetch(url2);
+    const body2 = await httpResponse2.json();
+    console.log(body2.name_);
+    console.log(body2.supervisor_id)
+
+
+    
+    
+   document.getElementById("k").innerHTML = `<h3 >${body2.name_}</h3>`
+
+
+
+
+
+
+    addEventListener('onload', (event) => {
+            console.log('The page is fully loaded.');
+        });
+
+
+
+}
+
+
+
+</script>
+
+</html>

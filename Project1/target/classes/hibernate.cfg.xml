@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">
+            org.postgresql.Driver
+        </property>
+
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.PostgreSQL10Dialect
+        </property>
+
+        <property name="hibernate.connection.url">
+            jdbc:postgresql://ahmed2109postgres.cqsltwiqlxmg.ca-central-1.rds.amazonaws.com/postgres
+        </property>
+
+        <property name="hibernate.connection.username">
+            ahmed
+        </property>
+
+        <property name="hibernate.connection.password">
+            password
+        </property>
+
+        <!-- Optional Properties -->
+        <property name="show_sql">
+            true
+        </property>
+
+        <property name="hbm2ddl.auto">
+            validate
+        </property>
+
+<!--        <mapping class="com.project1.models.status" />-->
+        <mapping class="com.project1.models.gradingFormat" />
+        <mapping class="com.project1.models.department" />
+        <mapping class="com.project1.models.Employee" />
+        <mapping class="com.project1.models.ReinForm" />
+        <mapping class="com.project1.models.status" />
+<!--        <mapping resource="gf.hbm.xml" />-->
+        <!-- Class Mappings -->
+
+
+
+    </session-factory>
+</hibernate-configuration>
+

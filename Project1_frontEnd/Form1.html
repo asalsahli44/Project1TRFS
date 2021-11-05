@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <title>Form</title>
+  <h1 id = "t">Form</h1>
+</head>
+<style>
+  
+  #t{
+    text-align: center;
+  }
+  body{
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+     padding: 85px;
+  }
+  .date{
+    margin-bottom: 20px;
+  }
+  .username{
+    margin-bottom: 20px;
+  }
+  .loc{
+    margin-bottom: 20px;
+  }
+  .events{
+    margin-bottom: 20px;
+  }
+  .Cost{
+    margin-bottom: 20px;
+  }
+  .gradFormat{
+    margin-bottom: 20px;
+  }
+  .description{
+    margin-bottom: 20px;
+  }
+  .docs{
+    margin-bottom: 20px;
+  }
+
+
+</style>
+<body>
+
+  
+  
+
+
+
+<div class = date>
+  <input type="number" id = "dateInput" name = "date" placeholder="date">
+</div>
+
+<div class = "loc">
+  <input type="location" class="form-control" id="LocationInput" placeholder="Location">
+  <label for="LocationInput"></label>
+</div>
+
+
+<div class = "description">
+  <textarea id="txtInput" name="txt" rows="4" cols="50">
+  </textarea>  
+  </div>
+
+
+  <div class="Cost">
+    <input type="number" style="margin-top: 10px;" class="form-control" id="AmountInput" placeholder="Amount">
+    <label for="AmountInput"></label>
+    </div>
+  </div>
+
+</div class = "grade">
+<input type ="text" class = "form-control" placeholder="insert grade here" id = "gradeInput">
+</div>  
+  
+
+
+<div class = "events" style="margin-top: 20px;">
+<!-- <label class="input-group-text" for="IGS1">Event Type</label> -->
+<select class ="slct1" id = "EventType">
+    <option selected>Choose an Event</option>
+    <option value="1">University Course</option>
+    <option value="2">Seminar</option>
+    <option value="3">Certification Preparation Class</option>
+    <option value="4">Certification</option>
+    <option value="5">Technical Training</option\> 
+    <option value="6">Other</option>   
+  </select>
+
+  <div class="grade_format" style="margin-top: 20px;">
+  <select class ="slct2" id = "gFormat">
+      <option selected>Choose a Format</option>
+      <option value="1">Presentation</option>
+      <option value="2">Letter Grade</option>
+      <option value="3">Pass/Fail</option>
+    </select>
+
+
+<div class="docs" style="margin-top: 20px;">
+  <input type='file' name='upload'>
+</div>
+
+<div id = "d"></div>
+
+
+<!-- <button id="myBtn">Try it</button> -->
+
+<div class = "sub">
+<button id = "n" onclick = "getValues()">Submit Form</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
+<script>
+
+
+
+
+
+
+async function getValues(){
+
+
+
+    
+
+    
+    const dateValue = document.getElementById("dateInput").value;
+    const locationValue = document.getElementById("LocationInput").value;
+    const txtValue = document.getElementById("txtInput").value;
+    let amountValue = document.getElementById("AmountInput").value;
+    const gradeValue = document.getElementById("gradeInput").value;
+    const eventValue = document.getElementById("EventType").value;
+    const grade_format = document.getElementById("gFormat").value;
+
+    console.log(dateValue);
+    console.log(locationValue);
+    console.log(txtValue);
+    console.log(amountValue);
+    console.log(gradeValue);
+    console.log(eventValue);
+    console.log(grade_format);
+
+    
+    let newAmount = 0
+    if(eventValue == 1){
+      amountValue = amountValue * .80;
+    }
+    if(eventValue == 2){
+      amountValue = amountValue * .60;
+    }
+    if(eventValue == 3){
+      amountValue = amountValue *.75;
+    }
+    if(eventValue == 4){
+      amountValue = amountValue * .100;
+    }
+    if(eventValue == 5){
+      amountValue = amountValue * .90;
+    }
+    if(eventValue == 6){
+      amountValue = amountValue * .30;
+    }
+
+    
+
+    // document.getElementById("n").addEventListener("click", function() {document.getElementById("d").innerHTML = `<h3>${amountValue}</h3>`;})
+    document.getElementById("d").innerHTML = `<p> Amount Calculted $${amountValue}  </p>`;
+    
+
+
+    
+
+
+
+
+   
+    const a = `http://localhost:7000/gradingFormat/${grade_format}`;
+    const gResponse = await fetch(a);
+    const gradeO = await gResponse.json();
+    console.log(gradeO);
+
+    const b = "http://localhost:7000/status/1";
+    const sResponse = await fetch(b);
+    const statusO = await sResponse.json();
+    console.log(statusO);
+
+
+    const employeeId = sessionStorage.getItem("id");
+    const e = `http://localhost:7000/employee/${employeeId}`;
+    const eResponse = await fetch(e);
+    const employeeO = await eResponse.json();
+    console.log(employeeO.department_id)
+
+
+
+
+
+      const grade_f = {
+        grade_id: gradeO.grade_id,
+        presentation: gradeO.presentation
+      }
+
+      const status_f = {
+        status_id: statusO.status_id,
+        bencoApprove: statusO.bencoApprove,
+        depHeadApprove: statusO.depHeadApprove,
+        supApprove: statusO.supApprove,
+
+      }
+      
+      const employee_f = {
+        id: employeeO.id,
+        name_ :employeeO.name_,
+        supervisor_id: employeeO.supervisor_id,
+        email: employeeO.email,
+        benco : employeeO.benco,
+        department_id: employeeO.department_id,
+        username: employeeO.username,
+        password: employeeO.password
+      }
+      
+      
+
+    
+      const data = {    
+      date: dateValue,
+      location: locationValue,
+      description: txtValue,
+      costs: amountValue,
+      grade: gradeValue,
+      event_type: eventValue,
+      grade_format:grade_f,
+      stat_id: status_f,
+      employee_id:employee_f
+    }
+  
+     console.log(JSON.stringify(data));
+     const url = "http://localhost:7000/reinForm";
+
+        const httpResponse = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data)
+        });
+
+        const body = await httpResponse.json();
+
+        console.log(body);
+        
+        //document.getElementById("response").innerHTML = (body && body != {}) ? "Reinbursements Successfully Added!" : "Reinbursements Failed";
+
+
+   }
+   
+  
+  </script>

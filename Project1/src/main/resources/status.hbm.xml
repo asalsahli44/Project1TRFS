@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!--    any attributes here apply to the actrual SQL table, if you do not include them,
+     then the name will be assumed based on the field name in the class. -->
+
+    <class name="com.project1.models.status" table="status">
+
+        <!--   'name' attribute corresponds to the java class name or field name.
+                'type' attribute will let Hibernate know what to convert the SQL type
+                into for Java. 'Column' is to specify a column name in the SQL table. -->
+
+        <!--        id tag is for your Primary key -->
+        <id name="status_id" type="int" column="status_id">
+            <generator class="identity" />
+        </id>
+
+        <property name="status_name" type ="string" />
+
+
+    </class>
+
+
+</hibernate-mapping>
